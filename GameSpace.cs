@@ -13,9 +13,9 @@ namespace Geometry_game
         {
             Console.WriteLine("Enter the params of game field");
             Console.WriteLine("X length will be (min 30): ");
-            int horizontalLength = CoordinatesEntryValidation(30);
+            int horizontalLength = CoordinatesEntryValidation(10);
             Console.WriteLine("Y length will be (min 20): ");
-            int verticalLength = CoordinatesEntryValidation(20);
+            int verticalLength = CoordinatesEntryValidation(10);
             int[,] gamespace = new int[verticalLength + 1, horizontalLength + 1];
             gamespace = FormingTheNumerationGrid(gamespace);
             return gamespace;
@@ -54,7 +54,7 @@ namespace Geometry_game
         }
 
         //Printing the game space matrix 
-        internal static void PrintingTheGameMatrix(int[,] gameSpace)
+        internal static void PrintGameMatrix(int[,] gameSpace)
         {
             for (int i = 0; i < gameSpace.GetLength(1); i++)
             {

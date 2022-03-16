@@ -10,8 +10,8 @@ namespace GeometryGame
         static void Main()
         {         
             int[,] gameSpace = GameSpace.CreateGameSpace();
-            GameSpace.PrintingTheGameMatrix(gameSpace);
-            GameProcess.PlayingGame(gameSpace);
+            GameSpace.PrintGameMatrix(gameSpace);
+            GameProcess.PlayGame(gameSpace);
         }        
     }
 }

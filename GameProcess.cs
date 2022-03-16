@@ -39,44 +39,43 @@ namespace Geometry_game
         {
             Console.WriteLine($"Now it's the {currentPlayer} player's turn");
             GetRectangleLengths(out int xLength, out int yLength);
-            GetRectangleVertexCoordinates(out int xVertexCoordinate, out int yVertexCoorinate, xLength, yLength, gameSpace);
-            gameSpace = PaintRectangleWithCurrentParamsOrRethrowDices(gameSpace, xVertexCoordinate, yVertexCoorinate, xLength, yLength, currentPlayer, out score);
+            gameSpace = PaintRectangleWithCurrentParamsOrRethrowDices(gameSpace, xLength, yLength, currentPlayer, out score);
             return gameSpace;
         }
 
         //Module that can paint rectangle or rethrow dices if there is not enough space to paint it
-        private static int[,] PaintRectangleWithCurrentParamsOrRethrowDices(int[,] gameSpace, int xVertexCoordinate, int yVertexCoorinate, int xLength, int yLength, int currentPlayer, out int score)
+        private static int[,] PaintRectangleWithCurrentParamsOrRethrowDices(int[,] gameSpace, int xLength, int yLength, int currentPlayer, out int score)
         {
             int turnsCount = 1;
             score = 0;
             int turnsCountLimit = 2;
+            int xVertexCoordinate = 0;
+            int yVertexCoordinate = 0;
             while (turnsCount <= turnsCountLimit)
             {
-                if (IsPossibleToDrawRectangleCurrentParams(xVertexCoordinate, yVertexCoorinate, xLength, yLength, gameSpace))
-                {
-                    score += xLength * yLength;
-                    Console.Clear();
-                    return PaintRectangle(xVertexCoordinate, yVertexCoorinate, xLength, yLength, gameSpace, currentPlayer);
-                }
-
-                if (IsEnoughSpaceToPrintRectangle(gameSpace, xLength, yLength))
-                {
-                    Console.WriteLine("You have enough space to draw your rectangle. Choose your vertex coordinate");
-                    GetRectangleVertexCoordinates(out xVertexCoordinate, out yVertexCoorinate, xLength, yLength, gameSpace);
-                }
-                else if (!IsEnoughSpaceToPrintRectangle(gameSpace, xLength, yLength) && turnsCount < turnsCountLimit)
+                if (!IsEnoughSpaceToPrintRectangle(gameSpace, xLength, yLength) && turnsCount < turnsCountLimit)
                 {
                     Console.WriteLine($"You don't have enough space to draw your rectangle. You can rethrow your dices {turnsCountLimit - turnsCount++} more time (press any button)");
                     Console.ReadKey();
                     GetRectangleLengths(out xLength, out yLength);
-                    GetRectangleVertexCoordinates(out xVertexCoordinate, out yVertexCoorinate, xLength, yLength, gameSpace);
+                }
+                else if (IsEnoughSpaceToPrintRectangle(gameSpace, xLength, yLength))
+                {
+                    Console.WriteLine("You have enough space to draw your rectangle. Choose your vertex coordinate");
+                    GetRectangleVertexCoordinates(out xVertexCoordinate, out yVertexCoordinate, xLength, yLength, gameSpace);
                 }
                 else
                 {
                     Console.WriteLine("You don't have any space to draw or rethrows (press any button to continue)");
                     Console.ReadKey();
                     turnsCount++;
+                }
 
+                if (IsPossibleToDrawRectangleCurrentParams(xVertexCoordinate, yVertexCoordinate, xLength, yLength, gameSpace))
+                {
+                    score += xLength * yLength;
+                    Console.Clear();
+                    return PaintRectangle(xVertexCoordinate, yVertexCoordinate, xLength, yLength, gameSpace, currentPlayer);
                 }
             }
 
@@ -87,9 +86,10 @@ namespace Geometry_game
         //Calculating the number of turns bazed on the size of playing field
         private static int CalculateNumberOfTurns(int[,] gamespace)
         {
-            int numberOfTurns = gamespace.GetLength(0) * gamespace.GetLength(1) / 30 - 1;
-            Console.WriteLine($"Number of turns for each player is {numberOfTurns}");
-            return numberOfTurns;
+            //int numberOfTurns = gamespace.GetLength(0) * gamespace.GetLength(1) / 30 - 1;
+            //Console.WriteLine($"Number of turns for each player is {numberOfTurns}");
+            //return numberOfTurns;
+            return 5;
         }
 
         //Getting the length of rectangle by dice throw
