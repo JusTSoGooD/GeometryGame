@@ -1,3 +1,18 @@
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.csproj.AssemblyReference.cache
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.AssemblyInfoInputs.cache
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.AssemblyInfo.cs
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.csproj.CoreCompileInputs.cache
+C:\Users\kuchm\Desktop\GeometryGame\bin\Debug\net6.0\Geometry game.exe
+C:\Users\kuchm\Desktop\GeometryGame\bin\Debug\net6.0\Geometry game.deps.json
+C:\Users\kuchm\Desktop\GeometryGame\bin\Debug\net6.0\Geometry game.runtimeconfig.json
+C:\Users\kuchm\Desktop\GeometryGame\bin\Debug\net6.0\Geometry game.dll
+C:\Users\kuchm\Desktop\GeometryGame\bin\Debug\net6.0\Geometry game.pdb
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.dll
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\refint\Geometry game.dll
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.pdb
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\Geometry game.genruntimeconfig.cache
+C:\Users\kuchm\Desktop\GeometryGame\obj\Debug\net6.0\ref\Geometry game.dll
 C:\Users\kuchm\Desktop\Программы c#\Epam\sping mogilev\First part - final cut\Geometry game\bin\Debug\net6.0\Geometry game.exe
 C:\Users\kuchm\Desktop\Программы c#\Epam\sping mogilev\First part - final cut\Geometry game\bin\Debug\net6.0\Geometry game.deps.json
 C:\Users\kuchm\Desktop\Программы c#\Epam\sping mogilev\First part - final cut\Geometry game\bin\Debug\net6.0\Geometry game.runtimeconfig.json

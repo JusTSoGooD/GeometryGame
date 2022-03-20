@@ -1,81 +1,101 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Geometry_game
 {
-    public static class GameSpace
+    public class GameSpace
     {
-        //Creating game space with params, introduced by user
-        internal static int[,] CreateGameSpace()
+        private const int WIDTH_MIN = 30;
+        private const int WIDTH_MAX = 99;
+        private const int HEIGHT_MIN = 20;
+        private const int HEIGHT_MAX = 99;
+
+        private readonly int[,] valuesMatrix;
+
+        public GameSpace(int width, int height)
+        {
+            valuesMatrix = new int[height, width];
+        }
+
+        public int Width { get => valuesMatrix.GetLength(1); }
+        public int Height { get => valuesMatrix.GetLength(0); }
+        public int Area { get => Width * Height; }
+        public int[,] Values { get => valuesMatrix; }
+
+
+        //Creating game space with params, inputted by user
+        public static GameSpace CreateGameSpace()
         {
             Console.WriteLine("Enter the params of game field");
-            Console.WriteLine("X length will be (min 30): ");
-            int horizontalLength = CoordinatesEntryValidation(10);
-            Console.WriteLine("Y length will be (min 20): ");
-            int verticalLength = CoordinatesEntryValidation(10);
-            int[,] gamespace = new int[verticalLength + 1, horizontalLength + 1];
-            gamespace = FormingTheNumerationGrid(gamespace);
-            return gamespace;
+
+            string widthRequestMessage = $"X length (width) will be (from {WIDTH_MIN} to {WIDTH_MAX}):";
+            int width = UserInput.GetIntInRange(WIDTH_MIN, WIDTH_MAX, widthRequestMessage);
+
+            string heightRequestMessage = $"Y length (height) will be (from {HEIGHT_MIN} to {HEIGHT_MAX}):";
+            int height = UserInput.GetIntInRange(HEIGHT_MIN, HEIGHT_MAX, heightRequestMessage);
+
+            return new GameSpace(width, height);
         }
 
-        //Checking the correctness of the input of coordinates
-        private static int CoordinatesEntryValidation(int limit)
+        //Checking is there are enough space in whole gamespace to print a rectangle 
+        public bool IsHasSpaceForRectangleAnywhere(Size rectangleSize)
         {
-            while (true)
+            for (int y = 0; y < this.Height - rectangleSize.Height; y++)
             {
-                if (int.TryParse(Console.ReadLine(), out var coordinate) && coordinate >= limit)
+                for (int x = 0; x < this.Width - rectangleSize.Width; x++)
                 {
-                    return coordinate;
+                    if (IsPossibleToSetRectangle(new Point(x, y), rectangleSize))
+                    {
+                        return true;
+                    }
                 }
-                else
+            }
+
+            return false;
+        }
+
+        //Checking the ability to print rectangle with current params on gamespace
+        public bool IsPossibleToSetRectangle(Point rectangleRoot, Size rectangleSize)
+        {
+            for (int y = rectangleRoot.Y; y < rectangleRoot.Y + rectangleSize.Height; y++)
+            {
+                for (int x = rectangleRoot.X; x < rectangleRoot.X + rectangleSize.Width; x++)
                 {
-                    Console.WriteLine($"Check the input. It must be integer number greater or equal {limit}");
+                    if (valuesMatrix[y, x] != 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        //Painting the rectangles (1 for first player and 2 for second player) 
+        public void SetRectangle(Point rectangleRoot, Size rectangleSize, int playerMarker)
+        {
+            for (int y = rectangleRoot.Y; y < rectangleRoot.Y + rectangleSize.Height; y++)
+            {
+                for (int x = rectangleRoot.X; x < rectangleRoot.X + rectangleSize.Width; x++)
+                {
+                    valuesMatrix[y, x] = playerMarker;
                 }
             }
         }
 
-        //Forming the numeration grid 
-        private static int[,] FormingTheNumerationGrid(int[,] gameSpace)
+        public int GetScoreForPlayer(int playerId)
         {
-            for (int i = 0; i < gameSpace.GetLength(0); i++)
+            int score = 0;
+            for (int y = 0; y < this.Height; y++)
             {
-                gameSpace[i, 0] = i;
-            }
-
-            for (int j = 0; j < gameSpace.GetLength(1); j++)
-            {
-                gameSpace[0, j] = j;
-            }
-
-            return gameSpace;
-        }
-
-        //Printing the game space matrix 
-        internal static void PrintGameMatrix(int[,] gameSpace)
-        {
-            for (int i = 0; i < gameSpace.GetLength(1); i++)
-            {
-                Console.Write($"{gameSpace[0, i]} ");
-            }
-
-            Console.WriteLine();
-            for (int i = 1; i < gameSpace.GetLength(0); i++)
-            {
-                for (int j = 0; j < 9; j++)
+                for (int x = 0; x < this.Width; x++)
                 {
-                    Console.Write($"{gameSpace[i, j]} ");
+                    if (valuesMatrix[y, x] == playerId)
+                    {
+                        score++;
+                    }
                 }
-
-                for (int j = 9; j < gameSpace.GetLength(1); j++)
-                {
-                    Console.Write($"{gameSpace[i, j]}  ");
-                }
-                Console.WriteLine();
             }
+            return score;
         }
     }
-
 }
